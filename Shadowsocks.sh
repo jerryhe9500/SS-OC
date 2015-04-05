@@ -11,7 +11,7 @@ echo "########################Shadowsocks Config########################"
 echo "##################################################################"
 echo "  This script will help you to build Shadowsocks on your Server.  "
 
-echo -n "Which Prot do you want to use for Shadowsocks?"
+echo -n "Which Protal do you want to use for Shadowsocks? "
 read SERVER_PORT
 
 #Install Essentials and Supervisor
@@ -25,7 +25,7 @@ cd ./Config
 mkdir /etc/shadowsocks
 cp shadowsocks.conf /etc/supervisor/conf.d
 
-PASSWORD=`pwgen -B 16 1`
+PASSWORD=`pwgen 16 1`
 echo -e "{
 	\"server\":\"0.0.0.0\",
 	\"server_port\":$SERVER_PORT,
@@ -44,12 +44,13 @@ autorestart=true
 user=nobody" >> /etc/supervisor/conf.d/shadowsocks.conf
 
 echo "ulimit -n 51200" >> /etc/default/supervisor
-
 supervisorctl reload
 
+echo "##################################################################"
 echo "Shadowsocks has been installed on your server."
 echo "The Config is following."
 echo "You can change it in /etc/shadowsocks/shadowsocks.json"
 echo "Port: $SERVER_PORT"
 echo "Password: $PASSWORD"
 echo "Method: aes-256-cfb" 
+echo "##################################################################"
